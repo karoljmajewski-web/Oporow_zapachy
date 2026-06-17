@@ -41,6 +41,46 @@
     <p id="coords">
     Kliknij na mapie, aby wybrać lokalizację.
 </p>
+    <hr>
+
+<h2>Zgłoszenie</h2>
+
+<label for="smellType">Typ zapachu:</label><br>
+<select id="smellType">
+    <option value="scieki">Ścieki</option>
+    <option value="chemiczny">Chemiczny</option>
+    <option value="spalenizna">Spalenizna</option>
+    <option value="plastik">Plastik / guma</option>
+    <option value="rolniczy">Rolniczy</option>
+    <option value="inny">Inny</option>
+</select>
+
+<br><br>
+
+<label for="intensity">Intensywność:</label><br>
+<select id="intensity">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+</select>
+
+<br><br>
+
+<label for="smellDate">Data wystąpienia:</label><br>
+<input type="date" id="smellDate">
+
+<br><br>
+
+<label for="smellTime">Godzina wystąpienia:</label><br>
+<input type="time" id="smellTime">
+
+<br><br>
+
+<button id="submitBtn">
+    Wyślij zgłoszenie
+</button>
 
 <button>Zgłoś zapach</button>
 
@@ -69,7 +109,31 @@ map.on('click', function(e) {
     document.getElementById("coords").innerText =
         `Wybrana lokalizacja: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
 });
+document
+    .getElementById("submitBtn")
+    .addEventListener("click", function() {
 
+        if (!marker) {
+            alert("Wybierz lokalizację na mapie.");
+            return;
+        }
+
+        const report = {
+            lat: marker.getLatLng().lat,
+            lon: marker.getLatLng().lng,
+            smellType: document.getElementById("smellType").value,
+            intensity: document.getElementById("intensity").value,
+            smellDate: document.getElementById("smellDate").value,
+            smellTime: document.getElementById("smellTime").value
+        };
+
+        console.log(report);
+
+        alert(
+            "Zgłoszenie przygotowane.\n\n" +
+            JSON.stringify(report, null, 2)
+        );
+    });
 </script>
 
 </body>
