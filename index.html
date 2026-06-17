@@ -38,6 +38,9 @@
 <h1>Monitoring Zapachów - Oporów</h1>
 
 <div id="map"></div>
+    <p id="coords">
+    Kliknij na mapie, aby wybrać lokalizację.
+</p>
 
 <button>Zgłoś zapach</button>
 
@@ -50,10 +53,22 @@ const map = L.map('map').setView([50.770, 16.285], 15);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap'
 }).addTo(map);
+    let marker = null;
 
-L.marker([50.770, 16.285])
-    .addTo(map)
-    .bindPopup("Obszar monitoringu");
+map.on('click', function(e) {
+
+    const lat = e.latlng.lat;
+    const lng = e.latlng.lng;
+
+    if (marker) {
+        map.removeLayer(marker);
+    }
+
+    marker = L.marker([lat, lng]).addTo(map);
+
+    document.getElementById("coords").innerText =
+        `Wybrana lokalizacja: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+});
 
 </script>
 
