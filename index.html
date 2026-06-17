@@ -3,15 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oporów - Monitoring Zapachów</title>
+    <title>Monitoring Zapachów - Oporów</title>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #map {
+            height: 70vh;
+            width: 100%;
+        }
+
+        button {
+            width: 90%;
+            max-width: 400px;
+            display: block;
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Monitoring Zapachów - Oporów</h1>
 
-    <p>
-        Projekt społecznego monitoringu uciążliwych zapachów.
-    </p>
+<h1>Monitoring Zapachów - Oporów</h1>
 
-    <button>Zgłoś zapach</button>
+<div id="map"></div>
+
+<button>Zgłoś zapach</button>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+const map = L.map('map').setView([50.770, 16.285], 15);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap'
+}).addTo(map);
+
+L.marker([50.770, 16.285])
+    .addTo(map)
+    .bindPopup("Obszar monitoringu");
+
+</script>
+
 </body>
 </html>
